@@ -8,6 +8,8 @@ use App\Http\Controllers\ProductController;
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
+Route::get('/products', [ProductController::class, 'index']);
+
 
 Route::middleware('auth:sanctum')->group(function () {
     // Post routes

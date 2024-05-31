@@ -60,14 +60,14 @@ class ProductController extends Controller
         return response()->json(['message' => 'Product deleted successfully'], 200);
     }
 
-    // Method to retrieve all products
     public function index()
     {
-        // Retrieve all products
-        $products = Product::all();
-
-        // Return a response with the products
-        return response()->json($products, 200);
+        try {
+            $products = Product::all();
+            return response()->json($products);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error fetching products'], 500);
+        }
     }
 
     // Method to retrieve a specific product by ID

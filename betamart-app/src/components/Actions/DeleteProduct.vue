@@ -4,13 +4,51 @@
     <div class="warning-container">
         <p class="warning-message">Are you sure you want to delete this product?</p>
         <div class="warning-buttons">
-            <button class="yes-button">Yes</button>
+            <button @click="deleteProduct" class="yes-button">Yes</button>
             <button class="no-button">
                 <router-link to="/marketplace" class="dropdown-item">No</router-link>
             </button>
         </div>
     </div>
 </template>
+
+<script>
+import Navbar from "@/components/NavBar.vue";
+import axios from 'axios';
+
+export default {
+    components: {
+        Navbar,
+    },
+    data() {
+        return {
+            productId: null,
+            productName: "",
+            price: "",
+        };
+    },
+    methods: {
+        async deleteProduct() {
+            try {
+                // Perform deletion logic here
+                await axios.delete(`${this.$root.$data.apiUrl}/products/${this.productId}`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    },
+                });
+                // Redirect back to the marketplace after deletion
+                this.$router.push('/marketplace');
+            } catch (error) {
+                console.error('Error deleting product:', error);
+            }
+        },
+    },
+    mounted() {
+        // Fetch the product ID from the route params
+        this.productId = this.$route.params.id;
+    }
+};
+</script>
 
 <style scoped>
 .warning-container {
@@ -58,24 +96,3 @@
     opacity: 0.8;
 }
 </style>
-
-<script>
-import Navbar from "@/components/NavBar.vue";
-
-export default {
-    components: {
-        Navbar,
-    },
-    data() {
-        return {
-            productName: "",
-            price: "",
-        };
-    },
-    methods: {
-        submitProduct() {
-            // Logic to submit product data
-        },
-    },
-};
-</script>
