@@ -10,6 +10,8 @@ class ProductController extends Controller
     // Method to store a new product
     public function store(Request $request)
     {
+        \Log::info('Incoming request data: ', $request->all()); // Log the request data
+
         // Validate incoming request
         $validatedData = $request->validate([
             'productName' => 'required|string',

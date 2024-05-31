@@ -16,7 +16,7 @@
             </div>
 
             <div class="d-grid gap-2">
-                <button class="btn btn-primary">Submit</button>
+                <button @click="submitProduct" class="btn btn-primary">Submit</button>
                 <button @click="closeForm" class="btn btn-secondary">
                     <router-link to="/marketplace" class="dropdown-item">Close</router-link>
                 </button>
@@ -47,10 +47,11 @@ export default {
             };
 
             // Make a POST request to the Laravel API endpoint
-            fetch('http://your-laravel-api.com/api/products', {
+            fetch('http://localhost:8000/api/products', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}` // Add this line if using auth
                     // Add any additional headers if needed, like authorization token
                 },
                 body: JSON.stringify(productData)
