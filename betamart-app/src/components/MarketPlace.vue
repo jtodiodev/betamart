@@ -27,9 +27,7 @@
               <td>{{ product.price }}</td>
               <td>{{ product.author }}</td>
               <td>
-                <button class="btn btn-success btn-sm">
-                  <router-link :to="'/viewproduct/' + product.id" class="dropdown-item">View</router-link>
-                </button>
+
                 &nbsp;
                 <button class="btn btn-warning btn-sm">
                   <router-link :to="'/editproduct/' + product.id" class="dropdown-item">Update</router-link>
