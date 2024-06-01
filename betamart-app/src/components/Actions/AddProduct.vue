@@ -15,6 +15,11 @@
                 <input type="text" id="price" v-model="price" class="form-control" />
             </div>
 
+            <div class="mb-3">
+                <label for="description" class="form-label">Description:</label>
+                <textarea type="text" id="description" v-model="description" class="form-control"></textarea>
+            </div>
+
             <div class="d-grid gap-2">
                 <button @click="submitProduct" class="btn btn-primary">Submit</button>
                 <button @click="closeForm" class="btn btn-secondary">
@@ -36,6 +41,7 @@ export default {
         return {
             productName: "",
             price: "",
+            description: "",
         };
     },
     methods: {
@@ -43,16 +49,15 @@ export default {
             // Prepare the data to be sent
             const productData = {
                 productName: this.productName,
-                price: this.price
+                price: this.price,
+                description: this.description
             };
 
-            // Make a POST request to the Laravel API endpoint
             fetch('http://localhost:8000/api/products', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}` // Add this line if using auth
-                    // Add any additional headers if needed, like authorization token
+                    'Authorization': `Bearer ${localStorage.getItem('token')}` 
                 },
                 body: JSON.stringify(productData)
             })
@@ -60,20 +65,16 @@ export default {
                     if (!response.ok) {
                         throw new Error('Failed to add product');
                     }
-                    // If the request is successful, reset the form fields
                     this.productName = '';
                     this.price = '';
-                    // Optionally, you can show a success message or redirect to another page
-                    // For simplicity, let's assume the product gets added silently
+                    this.description = '';
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    // Handle error, show a message to the user, or log it
                 });
         },
 
         closeForm() {
-            // Logic to close the form
         },
     },
 };

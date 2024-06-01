@@ -27,10 +27,12 @@
               <td>{{ product.price }}</td>
               <td>{{ product.author }}</td>
               <td>
-
+                <button class="btn btn-success btn-sm">
+                  <router-link to="/viewproduct" class="dropdown-item">View</router-link>
+                </button>
                 &nbsp;
-                <button class="btn btn-warning btn-sm">
-                  <router-link :to="'/editproduct/' + product.id" class="dropdown-item">Update</router-link>
+                <button class="btn btn-warning btn-sm" @click="navigateToEdit(product.id)">
+                  <router-link to="/editproduct" class="dropdown-item">Edit</router-link>
                 </button>
                 &nbsp;
                 <button class="btn btn-danger btn-sm" @click="deleteProduct(product.id)">
@@ -87,6 +89,10 @@ export default {
       } catch (error) {
         console.error('Error fetching products:', error);
       }
+    },
+    navigateToEdit(productId) {
+      this.$router.push({ name: 'editproduct', params: { id: productId } });
+      console.log(productId);
     },
     async deleteProduct(productId, index) {
       try {

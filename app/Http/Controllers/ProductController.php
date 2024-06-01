@@ -16,12 +16,16 @@ class ProductController extends Controller
         $validatedData = $request->validate([
             'productName' => 'required|string',
             'price' => 'required|numeric',
+            'description' => 'required|string',
+
         ]);
 
         // Create and save the product
         $product = new Product();
         $product->productName = $validatedData['productName'];
         $product->price = $validatedData['price'];
+        $product->description = $validatedData['description'];
+
         $product->save();
 
         // Return a response indicating success
@@ -38,11 +42,14 @@ class ProductController extends Controller
         $validatedData = $request->validate([
             'productName' => 'required|string',
             'price' => 'required|numeric',
+            'description' => 'required|string',
+
         ]);
 
         // Update product details
         $product->productName = $validatedData['productName'];
         $product->price = $validatedData['price'];
+        $product->productName = $validatedData['description'];
         $product->save();
 
         // Return a response indicating success
